@@ -1,0 +1,15 @@
+# Browsing
+playwright==1.49.1
+
+# LLM (Groq has a vision model; Anthropic is an optional fallback)
+groq==0.13.1
+anthropic==0.42.0
+
+# Utils
+pydantic==2.10.4
+python-dotenv==1.0.1
+pyyaml==6.0.2
+rich==13.9.4
+
+# Tests
+pytest==8.3.4

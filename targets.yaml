@@ -1,0 +1,23 @@
+# Pages to check. Deliberately covers a range of healthy / broken /
+# ambiguous cases so the demo exercises every boundary rule.
+
+- url: https://example.com
+  note: "reference OK page — all signals green, LLM skipped"
+
+- url: https://httpbin.org/html
+  note: "HTML page with a Moby-Dick excerpt — OK"
+
+- url: https://httpbin.org/status/404
+  note: "hard fail: HTTP 404 — LLM skipped"
+
+- url: https://httpbin.org/status/500
+  note: "hard fail: HTTP 500 — LLM skipped"
+
+- url: https://the-internet.herokuapp.com/broken_images
+  note: "200 OK but several 404 images — ambiguous, vision layer asked"
+
+- url: https://the-internet.herokuapp.com/status_codes/301
+  note: "redirect target — should resolve cleanly"
+
+- url: https://httpbin.org/html?short
+  note: "healthy HTML — sanity check"
