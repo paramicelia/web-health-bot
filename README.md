@@ -28,6 +28,11 @@ and occasionally wrong. But some judgements are genuinely subjective:
 A deterministic program can't decide those. An LLM looking at the
 screenshot can.
 
+<!-- After recording: uncomment the next line. -->
+<!-- ![Web health bot demo](demo/demo.gif) -->
+
+> Recording instructions: [`demo/RECORDING.md`](demo/RECORDING.md).
+
 The goal of this bot isn't to maximise coverage of either layer — it's
 to draw a disciplined line between them. Three rules:
 
