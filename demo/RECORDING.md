@@ -1,8 +1,18 @@
 # How to record the demo (25-35 seconds)
 
-The interesting visual here is the **terminal output** — the rich table
-plus the "LLM calls 4 (deterministic short-circuit saved 3)" line. That
-single line is the whole pitch of the project.
+You have **two options** — pick one or do both:
+
+- **(A) Web UI** (recommended for the GIF): browser viewer at `/`, each
+  URL becomes a coloured card with screenshot thumbnail. Higher visual
+  density, screenshots make it look like a tool, not a script.
+- **(B) Terminal**: the rich-formatted CLI output. Lower visual density
+  but emphasises the "LLM calls 4 (deterministic short-circuit saved 3)"
+  summary line, which is the project's whole pitch.
+
+The interesting visual in either path is the **boundary signal** — pages
+that are obviously broken (404, 500) get a `FAIL` badge in milliseconds
+with no LLM call, while ambiguous ones get the `LLM ✓` pill and a vision
+verdict.
 
 ## Tool
 
@@ -21,7 +31,39 @@ agg demo.cast demo.gif --speed 1.5
 
 ---
 
-## Setup before recording
+## Path A — Web UI demo (recommended)
+
+### Setup
+
+1. Start the API:
+   ```bash
+   uvicorn src.api:app --host 127.0.0.1 --port 8000 --log-level warning
+   ```
+2. Open `http://127.0.0.1:8000/` in a clean browser window.
+3. Click **Load defaults** once — `targets.yaml` URLs fill the textarea.
+4. Run once before recording so Playwright/Groq are warm.
+
+### Script (~30 sec)
+
+| # | Action                                                       | Why                                                      |
+|---|--------------------------------------------------------------|----------------------------------------------------------|
+| 1 | Show the populated textarea + the backend badge ("groq")     | Sets the scene                                           |
+| 2 | Click **Run health check**                                   | Cards start streaming in                                 |
+| 3 | Pause as `example.com` lands `OK` with `LLM skipped` pill    | Boundary working: green page = no LLM call               |
+| 4 | Pause as `status/500` lands `FAIL` with `LLM skipped` pill   | Boundary working: hard fail = no LLM call                |
+| 5 | Pause as `broken_images` lands `FAIL` with `LLM ✓` pill      | LLM called only when needed; screenshot thumbnail visible |
+| 6 | Show summary stats at top — total, ok, warn, fail, LLM saved | The money frame                                          |
+
+What to highlight visually: the **`LLM ✓` vs `LLM skipped`** pills are
+the entire project. Mouse-hover over the screenshot thumbnail of
+`broken_images` — visible broken-image icons explain why vision said
+fail.
+
+---
+
+## Path B — Terminal demo
+
+### Setup
 
 1. Open Windows Terminal at the project root, full screen.
 2. Set font size to ~14pt so the table is readable in the GIF after

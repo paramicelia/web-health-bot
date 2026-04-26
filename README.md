@@ -74,18 +74,31 @@ python -m playwright install chromium
 cp .env.example .env
 # set GROQ_API_KEY=... or ANTHROPIC_API_KEY=...
 
-# run against the default targets.yaml
+# A) CLI mode — runs targets.yaml, prints rich table + writes report.json
 python check.py
+python check.py https://example.com https://httpbin.org/status/500     # ad-hoc URLs
+python check.py --no-vision                                            # deterministic only
 
-# or ad-hoc
-python check.py https://example.com https://httpbin.org/status/500
-
-# deterministic-only (no LLM at all)
-python check.py --no-vision
+# B) Web UI mode — same engine, browser front-end with live cards
+uvicorn src.api:app --reload
+# open http://localhost:8000/
+# Swagger / OpenAPI: http://localhost:8000/docs
 ```
 
-Output: a rich table + per-page findings breakdown + a `report.json`
-file with the full structured results.
+### Web UI
+
+Single-file static viewer at the root of the API. Paste URLs (or load
+`targets.yaml`), click run, watch each URL appear as a status card with:
+
+- colour-coded `OK` / `WARN` / `FAIL` badge
+- latency (server + client)
+- `LLM ✓` pill when the vision layer was actually called, `LLM skipped`
+  when the deterministic short-circuit handled it
+- inline screenshot thumbnail (the same image the LLM judged)
+- collapsible findings table — every signal with layer + severity
+
+Same engine as the CLI; the UI just makes the boundary story visible at
+a glance.
 
 ---
 
