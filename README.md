@@ -233,7 +233,10 @@ web-health-bot/
 │   ├── deterministic.py     ← Playwright probe — HTTP, DOM, console, timing
 │   ├── vision.py            ← LLM vision (Groq or Anthropic)
 │   ├── bot.py               ← the orchestrator + boundary rules
-│   └── reporter.py          ← rich table + JSON report writer
+│   ├── reporter.py          ← rich table + JSON report writer
+│   └── api.py               ← FastAPI /check, /health, /targets, /artifacts
+├── ui/
+│   └── index.html           ← single-file Web UI (mounted at "/")
 └── tests/
     └── test_boundary.py     ← 8 tests pinning the boundary policy
 ```
