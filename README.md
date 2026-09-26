@@ -5,7 +5,7 @@
 > it's **deciding which checks to trust a program with and which to ask
 > an LLM**. This repo is about that boundary.
 
-Built as test task #1 for the Growe AI Specialist role.
+Built as a take-home exercise for an AI-specialist role.
 
 ---
 
@@ -27,11 +27,6 @@ and occasionally wrong. But some judgements are genuinely subjective:
 
 A deterministic program can't decide those. An LLM looking at the
 screenshot can.
-
-<!-- After recording: uncomment the next line. -->
-<!-- ![Web health bot demo](demo/demo.gif) -->
-
-> Recording instructions: [`demo/RECORDING.md`](demo/RECORDING.md).
 
 The goal of this bot isn't to maximise coverage of either layer — it's
 to draw a disciplined line between them. Three rules:
@@ -58,8 +53,8 @@ to draw a disciplined line between them. Three rules:
   the model says "looks fine" with confidence ≤ 3, the verdict stays at
   `warn`. Only a high-confidence (≥ 4) `ok` downgrades the verdict.
 
-These two rules are the reason the LLM is a useful tool here and not a
-risk surface. Both are covered by unit tests (`tests/test_boundary.py`).
+These two rules limit what the LLM can change. Both are covered by unit
+tests (`tests/test_boundary.py`).
 
 ---
 
@@ -276,8 +271,8 @@ the next iteration.
 - **Smart deduplication.** If the CDN drops, 50 sub-pages all fail
   with the same root cause. Surface once, not 50 times.
 - **Parallelisation.** Pages are checked serially. Playwright supports
-  multiple contexts; a bounded worker pool cuts a 7-page run from
-  ~8 s to ~2 s.
+  multiple contexts; a bounded worker pool would shorten multi-page
+  runs.
 - **Scheduled mode.** Cron-style loop that writes to a durable store
   (ClickHouse) and posts a diff to Slack when a page flips status.
   One evening of work on top of this.
