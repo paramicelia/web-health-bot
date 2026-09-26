@@ -275,7 +275,6 @@ the next iteration.
   runs.
 - **Scheduled mode.** Cron-style loop that writes to a durable store
   (ClickHouse) and posts a diff to Slack when a page flips status.
-  One evening of work on top of this.
 
 ### Safety & contract
 

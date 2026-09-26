@@ -127,4 +127,4 @@ git commit -m "Add terminal demo gif"
 git push
 ```
 
-Then uncomment the `<!-- ![Demo](demo/demo.gif) -->` line in `README.md`.
+Then add a `![Web health bot demo](demo/demo.gif)` line to `README.md`.
